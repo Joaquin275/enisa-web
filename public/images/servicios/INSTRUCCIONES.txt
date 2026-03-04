@@ -1,0 +1,38 @@
+INSTRUCCIONES — IMÁGENES DE SERVICIOS
+======================================
+
+Coloca aquí las imágenes de cada servicio y actívalas en:
+  components/landing/Services.tsx  →  campo `image` de cada servicio
+
+ARCHIVOS ESPERADOS (nombre exacto)
+────────────────────────────────────
+limpieza-hogar.jpg         → Limpieza del Hogar
+oficinas.jpg               → Oficinas y Locales
+final-obra.jpg             → Final de Obra
+cristales.jpg              → Limpieza de Cristales
+apartamentos.jpg           → Apartamentos Turísticos
+zonas-comunes.jpg          → Zonas Comunes
+
+ESPECIFICACIONES
+────────────────
+Formato:     .jpg o .webp (webp preferible, menor peso)
+Resolución:  800×500 px mínimo (ratio 16:9)
+Peso:        máx. 200 KB por imagen (usa https://squoosh.app)
+Calidad:     80–85 % en JPEG, 75–80 % en WebP
+
+CÓMO ACTIVAR UNA IMAGEN
+────────────────────────
+Abre components/landing/Services.tsx y busca el servicio.
+Cambia la línea:
+  image: "",  // "/images/servicios/limpieza-hogar.jpg"
+Por:
+  image: "/images/servicios/limpieza-hogar.jpg",
+
+IDEAS PARA LAS FOTOS
+────────────────────
+• Limpieza del Hogar:      cocina o baño recién limpio
+• Oficinas y Locales:      oficina ordenada, alguien limpiando
+• Final de Obra:           espacio limpio post-construcción
+• Limpieza de Cristales:   ventana brillante con vistas
+• Apartamentos Turísticos: cama perfectamente hecha
+• Zonas Comunes:           portal o escalera impecable

@@ -1,0 +1,50 @@
+INSTRUCCIONES PARA VÍDEOS DEL HERO
+====================================
+
+Coloca aquí tus archivos de vídeo y actívalos en:
+  components/landing/Hero.tsx  →  objeto CONFIG (primeras líneas)
+
+FORMATOS RECOMENDADOS
+─────────────────────
+• .mp4  (H.264) — compatible con todos los navegadores
+• .webm (VP9)   — mejor compresión, Chrome/Firefox
+  → Incluye ambos para máxima compatibilidad
+
+ARCHIVOS SUGERIDOS
+──────────────────
+hero.mp4           → Vídeo de fondo a pantalla completa (OPCIÓN A)
+hero.webm          → Versión webm del anterior
+hero-panel.mp4     → Vídeo en panel lateral (OPCIÓN B)
+
+ESPECIFICACIONES RECOMENDADAS
+──────────────────────────────
+Resolución:   1920×1080 px (16:9) para fondo completo
+              900×1200 px  (3:4)  para panel lateral
+Duración:     10-30 segundos (se repite en loop)
+Sin audio:    el vídeo se reproduce sin sonido (muted)
+Tamaño:       máx. 15 MB para fondo, 8 MB para panel
+FPS:          24-30 fps
+Bitrate:      2-4 Mbps (buena calidad sin peso excesivo)
+
+CÓMO CONVERTIR TU VÍDEO (FFmpeg)
+──────────────────────────────────
+mp4:  ffmpeg -i original.mov -vcodec h264 -an -crf 23 -vf scale=1920:-2 hero.mp4
+webm: ffmpeg -i original.mov -c:v libvpx-vp9 -an -crf 33 -b:v 0 -vf scale=1920:-2 hero.webm
+
+ACTIVAR EN EL CÓDIGO
+────────────────────
+Abre components/landing/Hero.tsx y edita el objeto CONFIG:
+
+  const CONFIG = {
+    bgVideo: "/videos/hero.mp4",     ← OPCIÓN A: fondo completo
+    bgImage: "",
+    mainVideo: "",                   ← OPCIÓN B: panel lateral
+    mainImage: "",
+    secondaryImage: "",
+  };
+
+HERRAMIENTAS GRATUITAS PARA COMPRIMIR
+───────────────────────────────────────
+• Handbrake (https://handbrake.fr)
+• Clideo (https://clideo.com)
+• CloudConvert (https://cloudconvert.com)

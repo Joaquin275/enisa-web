@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-cream text-gray-900 font-sans;
+  }
+
+  /* Títulos usan Syne */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+
+  ::selection {
+    @apply bg-navy-900 text-white;
+  }
+
+  * {
+    @apply border-gray-200;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-4 bg-navy-900 text-white font-display font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-navy-800 hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-8 py-4 border border-navy-900 text-navy-900 font-display font-semibold text-sm tracking-wide transition-all duration-300 hover:bg-navy-900 hover:text-white hover:-translate-y-0.5;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-6 py-3 text-navy-900 font-display font-medium text-sm tracking-wide transition-all duration-200 hover:opacity-70;
+  }
+
+  /* Etiquetas de sección */
+  .section-label {
+    @apply text-xs font-display font-semibold tracking-[0.22em] uppercase text-navy-600;
+  }
+
+  /* Títulos de sección — Syne con tracking muy apretado */
+  .section-title {
+    @apply font-display text-3xl md:text-4xl lg:text-5xl font-bold text-navy-950 leading-[1.05] tracking-tight;
+  }
+
+  .card-premium {
+    @apply bg-white border border-gray-100 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+
+  .input-premium {
+    @apply w-full px-4 py-3 border border-gray-200 bg-white text-gray-900 text-sm font-sans transition-all duration-200 outline-none focus:border-navy-600 focus:ring-1 focus:ring-navy-600 placeholder:text-gray-400;
+  }
+
+  .divider {
+    @apply w-12 h-px bg-navy-900;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Clase de conveniencia para usar Syne en cualquier elemento */
+  .font-display {
+    font-family: var(--font-syne), system-ui, sans-serif;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #fafaf8; }
+::-webkit-scrollbar-thumb { background: #1d3d62; border-radius: 3px; }

@@ -1,0 +1,20 @@
+Coloca aqui tus fotos (.jpg, .webp, .png).
+
+Nombres sugeridos:
+- hero-principal.jpg
+- hero-detalle.jpg
+- trabajo-hogar.jpg
+- trabajo-oficina.jpg
+- trabajo-obra.jpg
+- trabajo-cristales.jpg
+- trabajo-zonas.jpg
+- historia-trabajo.jpg
+- historia-ciudad.jpg
+- quienes-somos-hero.jpg
+- equipo-trabajando.jpg
+- equipo-maria.jpg
+- equipo-carmen.jpg
+- equipo-ana.jpg
+- equipo-laura.jpg
+
+Luego descomenta src= en los componentes correspondientes.

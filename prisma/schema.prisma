@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  name          String?
+  role          Role      @default(ADMIN)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+enum Role {
+  ADMIN
+  SUPERADMIN
+}
+
+model Staff {
+  id                    String                 @id @default(cuid())
+  name                  String
+  bio                   String?
+  active                Boolean                @default(true)
+  specialties           String[]
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  availabilityRules     AvailabilityRule[]
+  availabilityExceptions AvailabilityException[]
+  bookings              Booking[]
+}
+
+model Service {
+  id                   String    @id @default(cuid())
+  slug                 String    @unique
+  name                 String
+  shortDescription     String
+  description          String    @db.Text
+  baseDurationMinutes  Int       @default(120)
+  basePriceEur         Float?
+  metaTitle            String?
+  metaDescription      String?
+  active               Boolean   @default(true)
+  sortOrder            Int       @default(0)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  bookings             Booking[]
+}
+
+model Area {
+  id           String    @id @default(cuid())
+  name         String
+  postalCodes  String[]
+  active       Boolean   @default(true)
+  sortOrder    Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  bookings     Booking[]
+}
+
+model AvailabilityRule {
+  id        String   @id @default(cuid())
+  staffId   String
+  weekday   Int      // 0=Dom, 1=Lun, ..., 6=Sab
+  startTime String   // "09:00"
+  endTime   String   // "13:00"
+  staff     Staff    @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model AvailabilityException {
+  id        String   @id @default(cuid())
+  staffId   String
+  date      DateTime @db.Date
+  startTime String?  // null = todo el día bloqueado
+  endTime   String?
+  reason    String?
+  staff     Staff    @relation(fields: [staffId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  serviceId       String
+  areaId          String
+  staffId         String?
+  date            DateTime      @db.Date
+  startAt         DateTime
+  endAt           DateTime
+  status          BookingStatus @default(PENDIENTE)
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  address         String
+  notes           String?       @db.Text
+  adminNotes      String?       @db.Text
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  service         Service       @relation(fields: [serviceId], references: [id])
+  area            Area          @relation(fields: [areaId], references: [id])
+  staff           Staff?        @relation(fields: [staffId], references: [id])
+
+  @@unique([staffId, startAt, endAt])
+  @@index([date])
+  @@index([status])
+}
+
+enum BookingStatus {
+  PENDIENTE
+  CONFIRMADA
+  CANCELADA
+  COMPLETADA
+}
+
+model SlotConfig {
+  id                  String   @id @default(cuid())
+  slotDurationMinutes Int      @default(120)
+  dailyTimeWindows    Json     @default("[{\"start\":\"09:00\",\"end\":\"13:00\"},{\"start\":\"16:00\",\"end\":\"20:00\"}]")
+  updatedAt           DateTime @updatedAt
+}
+
+model SiteSettings {
+  id              String   @id @default(cuid())
+  companyName     String   @default("Limpieza Hogar A Coruña")
+  companyPhone    String   @default("+34 XXX XXX XXX")
+  companyEmail    String   @default("info@limpiezacoruna.es")
+  companyAddress  String   @default("A Coruña, Galicia")
+  schemaCity      String   @default("A Coruña")
+  schemaRegion    String   @default("Galicia")
+  schemaCountry   String   @default("ES")
+  updatedAt       DateTime @updatedAt
+}

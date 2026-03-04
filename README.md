@@ -124,3 +124,4 @@ Abre http://localhost:3000
 | Nodemailer / Resend | Emails de confirmación |
 | Vercel | Hosting |
 | Neon | Base de datos en la nube |
+# enisa-web

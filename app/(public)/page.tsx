@@ -1,7 +1,6 @@
 import { Hero } from "@/components/landing/Hero";
 import { Services } from "@/components/landing/Services";
 import { HowWeWork } from "@/components/landing/HowWeWork";
-import { Gallery } from "@/components/landing/Gallery";
 import { Zones } from "@/components/landing/Zones";
 import { Experience } from "@/components/landing/Experience";
 import { FAQ } from "@/components/landing/FAQ";
@@ -15,7 +14,6 @@ export default function HomePage() {
       <Hero />
       <Services />
       <HowWeWork />
-      <Gallery />
       <Zones />
       <Experience />
       <FAQ />

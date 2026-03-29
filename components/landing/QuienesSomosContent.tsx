@@ -1,8 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ImageSlot, ImageSlotLight } from "@/components/ui/ImageSlot";
+
+const HERO_VIDEOS = [
+  "/videos/video-cleaning-1.mp4",
+  "/videos/video-hogar.mp4",
+  "/videos/video-cleaning-2.mp4",
+];
 
 const values = [
   {
@@ -81,72 +88,89 @@ const itemVariants = {
 };
 
 export function QuienesSomosContent() {
+  const [current, setCurrent] = useState(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    timerRef.current = setTimeout(() => {
+      setCurrent((c) => (c + 1) % HERO_VIDEOS.length);
+    }, 5000);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [current]);
+
+  useEffect(() => {
+    const vid = videoRefs.current[current];
+    if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
+  }, [current]);
+
   return (
     <div className="min-h-screen">
 
-      {/* ── Hero con imagen ── */}
-      <div className="bg-navy-950 pt-28 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-end pb-0">
+      {/* ── Hero con vídeo ── */}
+      <div className="relative min-h-[75vh] flex items-end bg-navy-950 overflow-hidden">
 
-            {/* Texto */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="pb-16 lg:pb-24"
-            >
-              <Link
-                href="/"
-                className="font-display text-xs text-white/40 hover:text-white/70 tracking-widest uppercase transition-colors"
-              >
-                ← Inicio
-              </Link>
-              <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-white mt-8 leading-[1.0] tracking-tighter">
-                Una empresa
-                <br />
-                <span className="font-light text-white/45">familiar</span>
-              </h1>
-              <p className="text-white/55 mt-8 text-base max-w-md leading-relaxed font-sans">
-                Más de 7 años cuidando hogares, oficinas y espacios en A Coruña y alrededores
-                con la misma filosofía: hacerlo bien, siempre.
-              </p>
-
-              <div className="mt-12 grid grid-cols-3 gap-6 max-w-xs border-t border-white/10 pt-10">
-                {[
-                  { value: "+7", label: "Años" },
-                  { value: "4", label: "Profesionales" },
-                  { value: "+200", label: "Clientes" },
-                ].map((stat) => (
-                  <div key={stat.label}>
-                    <div className="font-display text-3xl font-bold text-white tracking-tight">{stat.value}</div>
-                    <div className="text-[10px] text-white/35 mt-1 tracking-widest uppercase">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Imagen hero — ocupa la parte inferior derecha */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative hidden lg:block self-end"
-            >
-              <ImageSlot
-                src="/images/pexels-liliana-drew-9462094.jpg"
-                alt="Equipo Enisa trabajando"
-                aspectRatio="portrait"
-                className="w-full"
-                priority
-              />
-              {/* Badge */}
-              <div className="absolute -left-6 top-1/3 bg-white px-5 py-4 shadow-xl">
-                <div className="font-display text-xs tracking-[0.2em] uppercase text-navy-400">Empresa</div>
-                <div className="font-display text-lg font-bold text-navy-950 mt-0.5">Familiar</div>
-              </div>
-            </motion.div>
+        {/* Vídeos en bucle */}
+        {HERO_VIDEOS.map((src, i) => (
+          <div
+            key={src}
+            className="absolute inset-0 transition-opacity duration-1000"
+            style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}
+          >
+            <video
+              ref={(el) => { videoRefs.current[i] = el; }}
+              src={src}
+              autoPlay={i === 0}
+              muted
+              playsInline
+              loop
+              preload={i === 0 ? "auto" : "none"}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
           </div>
+        ))}
+
+        {/* Overlays */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-navy-950/95 via-navy-950/55 to-navy-950/30" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-navy-950/70 via-transparent to-transparent" />
+
+        {/* Contenido */}
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-5 sm:px-8 lg:px-16 pb-14 sm:pb-20 pt-36">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="max-w-2xl"
+          >
+            <Link
+              href="/"
+              className="font-display text-xs text-white/40 hover:text-white/70 tracking-widest uppercase transition-colors"
+            >
+              ← Inicio
+            </Link>
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-white mt-6 leading-[1.05] tracking-tighter">
+              Una empresa
+              <br />
+              <span className="font-light text-white/45">familiar</span>
+            </h1>
+            <p className="text-white/55 mt-6 text-sm sm:text-base max-w-md leading-relaxed font-sans">
+              Más de 7 años cuidando hogares, oficinas y espacios en A Coruña y alrededores
+              con la misma filosofía: hacerlo bien, siempre.
+            </p>
+
+            <div className="mt-10 grid grid-cols-3 gap-6 max-w-xs border-t border-white/10 pt-8">
+              {[
+                { value: "+7", label: "Años" },
+                { value: "4", label: "Profesionales" },
+                { value: "+200", label: "Clientes" },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <div className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">{stat.value}</div>
+                  <div className="text-[10px] text-white/35 mt-1 tracking-widest uppercase">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
 
@@ -245,9 +269,7 @@ export function QuienesSomosContent() {
             className="mb-16"
           >
             <span className="section-label">Lo que nos define</span>
-            <h2 className="section-title mt-4">
-              Nuestros valores
-            </h2>
+            <h2 className="section-title mt-4">Nuestros valores</h2>
           </motion.div>
 
           <motion.div
@@ -275,7 +297,7 @@ export function QuienesSomosContent() {
         </div>
       </section>
 
-      {/* ── Equipo con fotos ── */}
+      {/* ── Equipo ── */}
       <section className="py-24 lg:py-32 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
@@ -285,9 +307,7 @@ export function QuienesSomosContent() {
             className="mb-16"
           >
             <span className="section-label">Las personas</span>
-            <h2 className="section-title mt-4">
-              Nuestro equipo
-            </h2>
+            <h2 className="section-title mt-4">Nuestro equipo</h2>
             <p className="text-gray-500 text-sm leading-relaxed mt-6 max-w-lg">
               Cuando contratas nuestros servicios, sabes exactamente quién va a venir. No somos
               una plataforma con cientos de personas. Somos cuatro profesionales de confianza.
@@ -302,12 +322,7 @@ export function QuienesSomosContent() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             {team.map((member) => (
-              <motion.div
-                key={member.name}
-                variants={itemVariants}
-                className="group flex flex-col"
-              >
-                {/* Foto de perfil */}
+              <motion.div key={member.name} variants={itemVariants} className="group flex flex-col">
                 <div className="relative overflow-hidden mb-5">
                   <ImageSlotLight
                     src={member.photo}
@@ -316,8 +331,6 @@ export function QuienesSomosContent() {
                     className="transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-
-                {/* Info */}
                 <div className="flex-1 bg-white border border-gray-100 p-6 hover:shadow-md transition-shadow">
                   <h3 className="font-display font-bold text-navy-950 text-base tracking-tight">{member.name}</h3>
                   <p className="text-navy-600 text-xs font-semibold tracking-wide mt-1">{member.role}</p>
@@ -328,14 +341,6 @@ export function QuienesSomosContent() {
               </motion.div>
             ))}
           </motion.div>
-
-          {/* Nota instruccional */}
-          <p className="mt-8 text-xs text-gray-400 text-center">
-            Para añadir las fotos del equipo, descomenta{" "}
-            <code className="bg-gray-100 px-1.5 py-0.5 text-gray-500">photo:</code> en cada miembro
-            y coloca las imágenes en{" "}
-            <code className="bg-gray-100 px-1.5 py-0.5 text-gray-500">public/images/</code>
-          </p>
         </div>
       </section>
 
@@ -368,8 +373,6 @@ export function QuienesSomosContent() {
                 sus casas y sus oficinas, y llevamos años trabajando para ellos. Esa continuidad
                 y esa confianza no tiene precio.
               </p>
-
-              {/* Imagen dentro de sección navy */}
               <div className="mt-10">
                 <ImageSlot
                   src="/images/pexels-pixabay-209271.jpg"
@@ -430,12 +433,8 @@ export function QuienesSomosContent() {
               confirmar todos los detalles.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/reservar" className="btn-primary">
-                Solicitar presupuesto
-              </Link>
-              <Link href="/#servicios" className="btn-outline">
-                Ver servicios
-              </Link>
+              <Link href="/reservar" className="btn-primary">Solicitar presupuesto</Link>
+              <Link href="/#servicios" className="btn-outline">Ver servicios</Link>
             </div>
           </motion.div>
         </div>

@@ -43,7 +43,7 @@ const services = [
     description:
       "Pequeñas reparaciones, pintura, emplastes, colocación de muebles y todo lo que tu hogar necesita. Experiencia y cuidado en cada trabajo.",
     detail: "Pintura · Emplastes · Reparaciones",
-    image: "/images/close-up-cleaning-window-with-sponge.jpg",
+    image: "/images/mantenimiento.jpg",
   },
   {
     category: CLEANING,
@@ -81,7 +81,7 @@ const services = [
     description:
       "Nos encargamos de toda la colada: lavado, secado y planchado de ropa, sábanas y ropa de cama. Tu ropa siempre lista y en perfecto estado.",
     detail: "Lavado · Secado · Planchado",
-    image: "",
+    image: "/images/lavar-planchar.jpg",
   },
   {
     category: HOME,

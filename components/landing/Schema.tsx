@@ -8,7 +8,7 @@ export function LocalBusinessSchema() {
       "Empresa familiar en A Coruña con más de 7 años de experiencia. Limpieza del hogar, oficinas, obras y mantenimiento. También cuidado de niños, lavado y planchado y servicio de cocina.",
     url: process.env.NEXT_PUBLIC_SITE_URL,
     telephone: "+34691746730",
-    email: "info@enisa.es",
+    email: "info@enisalimpieza.es",
     image: `${process.env.NEXT_PUBLIC_SITE_URL}/images/Logo.Enisa.png`,
     logo: `${process.env.NEXT_PUBLIC_SITE_URL}/images/Logo.Enisa.png`,
     address: {
@@ -76,3 +76,4 @@ export function LocalBusinessSchema() {
     />
   );
 }
+

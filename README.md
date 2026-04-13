@@ -59,7 +59,7 @@ Añade cada una de estas variables:
 | `NEXT_PUBLIC_SITE_URL` | `https://tudominio.com` |
 | `NEXT_PUBLIC_COMPANY_NAME` | `Enisa Limpieza` |
 | `NEXT_PUBLIC_COMPANY_PHONE` | `+34 691 74 67 30` |
-| `NEXT_PUBLIC_COMPANY_EMAIL` | `info@enisa.es` |
+| `NEXT_PUBLIC_COMPANY_EMAIL` | `info@enisalimpieza.es` |
 | `DEMO_ADMIN_EMAIL` | `admin@enisa.es` |
 | `DEMO_ADMIN_PASSWORD` | (pon una contraseña segura) |
 
@@ -126,3 +126,5 @@ Abre http://localhost:3000
 | Neon | Base de datos en la nube |
 # enisa-web
 # enisa-web
+
+

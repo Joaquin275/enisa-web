@@ -6,7 +6,7 @@ const MOCK_SETTINGS = {
   id: "demo",
   companyName: "Enisa Limpieza · Servicios para el Hogar",
   companyPhone: "+34 691 74 67 30",
-  companyEmail: "info@enisa.es",
+  companyEmail: "info@enisalimpieza.es",
   companyAddress: "C. Vicente Aleixandre, 28, 15009 A Coruña, Galicia",
 };
 
@@ -65,3 +65,4 @@ export default async function AjustesPage() {
     </div>
   );
 }
+

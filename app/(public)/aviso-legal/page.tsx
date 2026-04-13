@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const COMPANY = "Enisa Limpieza";
 const ADDRESS = "C. Vicente Aleixandre, 28, 15009 A Coruña, Galicia";
 const PHONE = "+34 691 74 67 30";
-const EMAIL = "info@enisa.es";
+const EMAIL = "info@enisalimpieza.es";
 const YEAR = new Date().getFullYear();
 
 export default function AvisoLegalPage() {
@@ -103,3 +103,4 @@ export default function AvisoLegalPage() {
     </div>
   );
 }
+

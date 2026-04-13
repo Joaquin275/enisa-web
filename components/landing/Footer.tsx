@@ -42,8 +42,8 @@ export function Footer() {
               <a href="tel:+34691746730" className="hover:text-navy-900 transition-colors">
                 +34 691 74 67 30
               </a>
-              <a href="mailto:info@enisa.es" className="hover:text-navy-900 transition-colors">
-                info@enisa.es
+              <a href="mailto:info@enisalimpieza.es" className="hover:text-navy-900 transition-colors">
+                info@enisalimpieza.es
               </a>
               <span>C. Vicente Aleixandre, 28</span>
               <span>15009 A Coruña, Galicia</span>
@@ -114,3 +114,4 @@ export function Footer() {
     </footer>
   );
 }
+

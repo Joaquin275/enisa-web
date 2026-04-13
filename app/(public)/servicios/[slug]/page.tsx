@@ -54,7 +54,7 @@ export default async function ServicePage({ params }: Props) {
       "@type": "LocalBusiness",
       name: "Enisa Limpieza · Servicios para el Hogar",
       telephone: "+34691746730",
-      email: "info@enisa.es",
+      email: "info@enisalimpieza.es",
       address: {
         "@type": "PostalAddress",
         streetAddress: "C. Vicente Aleixandre, 28",

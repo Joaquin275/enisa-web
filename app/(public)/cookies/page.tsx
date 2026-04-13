@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 const COMPANY = "Enisa Limpieza";
-const EMAIL = "info@enisa.es";
+const EMAIL = "info@enisalimpieza.es";
 const YEAR = new Date().getFullYear();
 
 export default function CookiesPage() {
@@ -136,3 +136,4 @@ export default function CookiesPage() {
     </div>
   );
 }
+

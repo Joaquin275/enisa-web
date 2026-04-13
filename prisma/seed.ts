@@ -186,7 +186,7 @@ async function main() {
     data: {
       companyName: "Enisa Limpieza · Servicios para el Hogar",
       companyPhone: "+34 691 74 67 30",
-      companyEmail: "info@enisa.es",
+      companyEmail: "info@enisalimpieza.es",
       companyAddress: "C. Vicente Aleixandre, 28, 15009 A Coruña, Galicia",
       schemaCity: "A Coruña",
       schemaRegion: "Galicia",
@@ -200,3 +200,4 @@ async function main() {
 main()
   .catch(console.error)
   .finally(() => prisma.$disconnect());
+

@@ -13,6 +13,7 @@ const DEMO_EMAIL = process.env.DEMO_ADMIN_EMAIL ?? "admin@enisa.es";
 const DEMO_PASSWORD = process.env.DEMO_ADMIN_PASSWORD ?? "admin123";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
   session: { strategy: "jwt" },
   pages: {
     signIn: "/admin/login",

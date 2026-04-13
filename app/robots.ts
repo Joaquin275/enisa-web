@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://limpiezacoruna.es";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://enisalimpieza.es";
   return {
     rules: [
       { userAgent: "*", allow: "/", disallow: ["/admin", "/api"] },

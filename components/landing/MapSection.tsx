@@ -1,7 +1,9 @@
 "use client";
 
-const MAPS_EMBED_URL =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2901.4646950654537!2d-8.402730524014798!3d43.346389471118364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2e7ca1bb398607%3A0x7053d2f9430bef4!2sC.%20Vicente%20Aleixandre%2C%2028%2C%2015009%20La%20Coru%C3%B1a!5e0!3m2!1ses!2ses!4v1776111848971!5m2!1ses!2ses";
+// Coordenadas exactas extraídas del embed oficial de Google Maps
+const LAT = 43.346389471118364;
+const LNG = -8.402730524014798;
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
 const ENCODED_ADDRESS = encodeURIComponent("C. Vicente Aleixandre, 28, 15009 A Coruña, España");
 
 export function MapSection() {
@@ -71,16 +73,22 @@ export function MapSection() {
 
           {/* Mapa */}
           <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-100 h-[420px]">
-            <iframe
-              title="Ubicación Enisa Limpieza — C. Vicente Aleixandre, 28, A Coruña"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              loading="lazy"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-              src={MAPS_EMBED_URL}
-            />
+            {API_KEY ? (
+              <iframe
+                title="Ubicación Enisa Limpieza — C. Vicente Aleixandre, 28, A Coruña"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${LAT},${LNG}&zoom=17&language=es`}
+              />
+            ) : (
+              <div className="w-full h-full bg-navy-50 flex items-center justify-center">
+                <p className="text-gray-400 text-sm">Mapa no disponible</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

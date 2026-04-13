@@ -1,7 +1,7 @@
 "use client";
 
-const ADDRESS = "C. Vicente Aleixandre, 28, 3 IZQ, 15009 A Coruña, Galicia";
-const ENCODED_ADDRESS = encodeURIComponent(ADDRESS);
+const MAPS_QUERY = "Rúa Vicente Aleixandre 28, 15009 A Coruña, España";
+const ENCODED_ADDRESS = encodeURIComponent(MAPS_QUERY);
 const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
 
 export function MapSection() {
@@ -63,7 +63,7 @@ export function MapSection() {
               href={`https://www.google.com/maps/search/?api=1&query=${ENCODED_ADDRESS}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-8 text-sm font-medium text-navy-900 border border-navy-900 px-6 py-3 rounded-lg hover:bg-navy-900 hover:text-white transition-all duration-200"
+              className="inline-flex items-center gap-2 mt-8 text-sm font-medium text-navy-900 border border-navy-900 px-6 py-3 rounded-xl hover:bg-navy-900 hover:text-white transition-all duration-200"
             >
               Ver en Google Maps →
             </a>
@@ -80,7 +80,7 @@ export function MapSection() {
                 loading="lazy"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
-                src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${ENCODED_ADDRESS}&language=es&zoom=16`}
+                src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${ENCODED_ADDRESS}&language=es&zoom=17`}
               />
             ) : (
               <div className="w-full h-full bg-navy-50 flex items-center justify-center">

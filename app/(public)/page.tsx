@@ -5,6 +5,7 @@ import { Zones } from "@/components/landing/Zones";
 import { Experience } from "@/components/landing/Experience";
 import { FAQ } from "@/components/landing/FAQ";
 import { CTA } from "@/components/landing/CTA";
+import { MapSection } from "@/components/landing/MapSection";
 import { LocalBusinessSchema } from "@/components/landing/Schema";
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
       <Zones />
       <Experience />
       <FAQ />
+      <MapSection />
       <CTA />
     </>
   );

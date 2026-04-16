@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.EMAIL_SERVER_PASSWORD);
+const resend = new Resend(process.env.RESEND_API_KEY ?? process.env.EMAIL_SERVER_PASSWORD);
 
 const FROM = process.env.EMAIL_FROM ?? "info@enisalimpieza.es";
 const COMPANY = process.env.NEXT_PUBLIC_COMPANY_NAME ?? "Enisa Limpieza";

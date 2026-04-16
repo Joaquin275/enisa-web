@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
         });
       });
 
-      // Enviar emails (no bloqueante)
+      // Enviar emails ANTES de retornar (Vercel corta funciones tras el return)
       const emailData = {
         customerName: booking.customerName,
         customerEmail: booking.customerEmail,
@@ -119,13 +119,17 @@ export async function POST(req: NextRequest) {
         bookingId: booking.id,
       };
 
-      Promise.all([
-        sendBookingConfirmationToCustomer(emailData).catch((err) =>
-          console.error("[EMAIL] Error al enviar confirmación al cliente:", err)
-        ),
-        sendBookingNotificationToAdmin(emailData).catch((err) =>
-          console.error("[EMAIL] Error al enviar notificación al admin:", err)
-        ),
+      // Await con timeout de 8s para no bloquear al usuario si el email falla
+      await Promise.race([
+        Promise.all([
+          sendBookingConfirmationToCustomer(emailData).catch((err) =>
+            console.error("[EMAIL] Error confirmación cliente:", err)
+          ),
+          sendBookingNotificationToAdmin(emailData).catch((err) =>
+            console.error("[EMAIL] Error notificación admin:", err)
+          ),
+        ]),
+        new Promise((resolve) => setTimeout(resolve, 8000)),
       ]);
 
       return NextResponse.json({ bookingId: booking.id, status: booking.status }, { status: 201 });

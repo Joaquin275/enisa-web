@@ -51,12 +51,12 @@ async function main() {
     },
     {
       slug: "mantenimiento-hogar-a-coruna",
-      name: "Mantenimiento del Hogar",
-      shortDescription: "Pequeñas reparaciones, pintura, emplastes y todo lo que tu hogar necesita.",
-      description: `¿Tienes una pared que necesita repintar, un emplaste que retocar o un mueble que montar? En Enisa contamos con profesionales especializadas en mantenimiento del hogar en A Coruña, listas para solucionar esos pequeños trabajos que siempre se van aplazando.\n\nOfrecemos servicios de pintura de habitaciones y estancias completas, emplastes y reparación de paredes, colocación de muebles y estanterías, pequeñas reparaciones de fontanería y carpintería, y mantenimiento general del hogar.\n\nTrabajamos con cuidado y limpieza, dejando tu casa en perfectas condiciones. Más de 7 años de experiencia nos avalan en A Coruña y alrededores.`,
-      baseDurationMinutes: 120,
-      metaTitle: "Mantenimiento del Hogar en A Coruña | Pintura y Reparaciones",
-      metaDescription: "Servicio de mantenimiento del hogar en A Coruña. Pintura, emplastes, reparaciones y más. Empresa familiar con +7 años de experiencia. Pide presupuesto sin compromiso.",
+      name: "Pintura y Mantenimiento",
+      shortDescription: "Pintamos pisos completos, locales y oficinas. Emplastes, reparaciones y acabados profesionales en A Coruña.",
+      description: `En Enisa ofrecemos un servicio integral de pintura y mantenimiento para pisos completos, habitaciones, locales comerciales y oficinas en A Coruña y alrededores. Contamos con más de 7 años de experiencia y un equipo de profesionales que trabaja con cuidado, limpieza y precisión.\n\nPintamos estancias completas, plantas enteras, locales recién reformados y oficinas en activo. También realizamos emplastes y reparación de paredes, gotelé, techos, zócalos y rodapiés, con acabados de alta calidad que marcan la diferencia.\n\nAdemás, atendemos pequeñas reparaciones de carpintería, colocación de muebles y estanterías, y cualquier trabajo de mantenimiento que necesite tu hogar, local o negocio. Pedimos presupuesto sin compromiso y nos adaptamos a tus plazos.`,
+      baseDurationMinutes: 240,
+      metaTitle: "Pintura de Pisos, Locales y Oficinas en A Coruña | Enisa",
+      metaDescription: "Servicio profesional de pintura y mantenimiento en A Coruña. Pintamos pisos completos, locales, oficinas y más. Emplastes y reparaciones. Empresa familiar +7 años. Presupuesto gratis.",
       sortOrder: 4,
     },
     {

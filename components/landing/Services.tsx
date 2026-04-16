@@ -39,10 +39,10 @@ const services = [
   {
     category: CLEANING,
     slug: "mantenimiento-hogar-a-coruna",
-    name: "Mantenimiento del Hogar",
+    name: "Pintura y Mantenimiento",
     description:
-      "Pequeñas reparaciones, pintura, emplastes, colocación de muebles y todo lo que tu hogar necesita. Experiencia y cuidado en cada trabajo.",
-    detail: "Pintura · Emplastes · Reparaciones",
+      "Pintamos pisos completos, habitaciones, locales y oficinas. También emplastes, reparaciones y acabados. Presupuesto sin compromiso en A Coruña.",
+    detail: "Pisos · Locales · Oficinas",
     image: "/images/mantenimiento.jpg",
   },
   {

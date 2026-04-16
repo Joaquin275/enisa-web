@@ -120,9 +120,13 @@ export async function POST(req: NextRequest) {
       };
 
       Promise.all([
-        sendBookingConfirmationToCustomer(emailData),
-        sendBookingNotificationToAdmin(emailData),
-      ]).catch(console.error);
+        sendBookingConfirmationToCustomer(emailData).catch((err) =>
+          console.error("[EMAIL] Error al enviar confirmación al cliente:", err)
+        ),
+        sendBookingNotificationToAdmin(emailData).catch((err) =>
+          console.error("[EMAIL] Error al enviar notificación al admin:", err)
+        ),
+      ]);
 
       return NextResponse.json({ bookingId: booking.id, status: booking.status }, { status: 201 });
     } catch (dbErr) {

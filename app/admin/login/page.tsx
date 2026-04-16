@@ -18,17 +18,23 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError("");
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
-    if (result?.error) {
-      setError("Email o contraseña incorrectos");
+      if (!result || result.error) {
+        setError("Email o contraseña incorrectos. Verifica tus credenciales.");
+        setLoading(false);
+      } else {
+        router.push("/admin/dashboard");
+        router.refresh();
+      }
+    } catch {
+      setError("Error de conexión. Inténtalo de nuevo.");
       setLoading(false);
-    } else {
-      router.push("/admin/dashboard");
     }
   }
 

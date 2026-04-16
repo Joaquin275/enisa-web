@@ -64,25 +64,30 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden bg-navy-950">
 
-      {/* ── CAPA DE VÍDEOS ── */}
-      {SLIDES.map((slide, i) => (
-        <div
-          key={slide.video}
-          className="absolute inset-0 transition-opacity duration-1000"
-          style={{ opacity: i === current ? 1 : 0, zIndex: i === current ? 1 : 0 }}
-        >
-          <video
-            ref={(el) => { videoRefs.current[i] = el; }}
-            src={slide.video}
-            autoPlay={i === 0}
-            muted
-            playsInline
-            loop
-            preload={i <= 1 ? "auto" : "none"}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </div>
-      ))}
+      {/* ── CAPA DE VÍDEOS — solo renderiza el actual y el siguiente ── */}
+      {SLIDES.map((slide, i) => {
+        const isActive = i === current;
+        const isNext = i === (current + 1) % SLIDES.length;
+        if (!isActive && !isNext) return null;
+        return (
+          <div
+            key={slide.video}
+            className="absolute inset-0 transition-opacity duration-1000"
+            style={{ opacity: isActive ? 1 : 0, zIndex: isActive ? 1 : 0 }}
+          >
+            <video
+              ref={(el) => { videoRefs.current[i] = el; }}
+              src={slide.video}
+              autoPlay={isActive}
+              muted
+              playsInline
+              loop
+              preload={isActive ? "auto" : "none"}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
+        );
+      })}
 
       {/* ── OVERLAYS ── */}
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-navy-950/95 via-navy-950/50 to-navy-950/30" />

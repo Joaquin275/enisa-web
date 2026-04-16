@@ -8,7 +8,11 @@ const loginSchema = z.object({
   password: z.string().min(4),
 });
 
-// Credenciales demo (cuando la BD no está configurada)
+// Superadministrador principal
+const ADMIN_EMAIL = process.env.ADMIN_LOGIN_EMAIL ?? "info@enisalimpieza.es";
+const ADMIN_PASSWORD = process.env.ADMIN_LOGIN_PASSWORD ?? "An220420*";
+
+// Credenciales demo secundarias
 const DEMO_EMAIL = process.env.DEMO_ADMIN_EMAIL ?? "admin@enisa.es";
 const DEMO_PASSWORD = process.env.DEMO_ADMIN_PASSWORD ?? "admin123";
 
@@ -47,20 +51,37 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         const { email, password } = parsed.data;
 
-        // 1. Intentar con la base de datos real
+        // 1. Superadmin hardcodeado — acceso garantizado sin BD
+        if (
+          email.toLowerCase() === ADMIN_EMAIL.toLowerCase() &&
+          password === ADMIN_PASSWORD
+        ) {
+          return {
+            id: "superadmin",
+            email: ADMIN_EMAIL,
+            name: "Enisa · Superadministrador",
+            role: "SUPERADMIN",
+          };
+        }
+
+        // 2. Intentar con la base de datos (con timeout de 5s para evitar bloqueos)
         try {
           const { prisma } = await import("@/lib/prisma");
-          const user = await prisma.user.findUnique({ where: { email } });
+          const userPromise = prisma.user.findUnique({ where: { email } });
+          const timeoutPromise = new Promise<null>((_, reject) =>
+            setTimeout(() => reject(new Error("DB_TIMEOUT")), 5000)
+          );
+          const user = await Promise.race([userPromise, timeoutPromise]);
           if (user) {
             const valid = await bcrypt.compare(password, user.passwordHash);
             if (!valid) return null;
             return { id: user.id, email: user.email, name: user.name ?? undefined, role: user.role };
           }
         } catch {
-          // DB no disponible → continuar con modo demo
+          // DB no disponible o timeout → continuar
         }
 
-        // 2. Modo demo: credenciales hardcodeadas cuando no hay BD
+        // 3. Credenciales demo secundarias
         if (
           email.toLowerCase() === DEMO_EMAIL.toLowerCase() &&
           password === DEMO_PASSWORD

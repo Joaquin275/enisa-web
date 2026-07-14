@@ -1,41 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { loginAction } from "./actions";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 
 export default function AdminLoginPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLoading(true);
     setError("");
+    const formData = new FormData(e.currentTarget);
 
-    try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-
-      if (!result || result.error) {
-        setError("Email o contraseña incorrectos. Verifica tus credenciales.");
-        setLoading(false);
-      } else {
-        router.push("/admin/dashboard");
-        router.refresh();
+    startTransition(async () => {
+      const result = await loginAction(formData);
+      if (result?.error) {
+        setError(result.error);
       }
-    } catch {
-      setError("Error de conexión. Inténtalo de nuevo.");
-      setLoading(false);
-    }
+    });
   }
 
   return (
@@ -50,31 +34,37 @@ export default function AdminLoginPage() {
           <h1 className="text-xl font-bold text-navy-950 mb-2">Acceder</h1>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 p-3 text-red-700 text-sm">{error}</div>
+            <div className="bg-red-50 border border-red-200 p-3 text-red-700 text-sm rounded">
+              {error}
+            </div>
           )}
 
           <Input
             label="Email"
             id="email"
+            name="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            defaultValue=""
             autoComplete="email"
             required
           />
           <Input
             label="Contraseña"
             id="password"
+            name="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            defaultValue=""
             autoComplete="current-password"
             required
           />
 
-          <Button type="submit" loading={loading} className="w-full mt-2">
-            Entrar
+          <Button type="submit" loading={isPending} className="w-full mt-2">
+            {isPending ? "Accediendo..." : "Entrar"}
           </Button>
+
+          <p className="text-xs text-gray-400 text-center mt-1">
+            Panel exclusivo para administradores
+          </p>
         </form>
       </div>
     </div>

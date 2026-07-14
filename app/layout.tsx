@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
 import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
+import { WhatsAppButton } from "@/components/landing/WhatsAppButton";
 
 const syne = Syne({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700", "800"],
   variable: "--font-syne",
   display: "swap",
+  preload: true,
 });
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
+  weight: ["400", "500"],
   variable: "--font-dm-sans",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -24,28 +26,28 @@ export const metadata: Metadata = {
     template: "%s | Enisa Limpieza A Coruña",
   },
   description:
-    "Empresa familiar de limpieza y servicios del hogar en A Coruña y alrededores. Más de 7 años de experiencia en limpieza de hogares, oficinas, final de obra, mantenimiento, cuidado de niños y más.",
+    "Enisa Limpieza — empresa familiar en A Coruña con más de 7 años. Limpieza del hogar, oficinas, final de obra, pintura, cuidado de niños, cocina y lavandería. Servicio en toda la comarca de A Coruña.",
   keywords: [
-    "limpieza A Coruña",
-    "empresa limpieza A Coruña",
-    "limpieza hogar A Coruña",
-    "servicio limpieza domicilio A Coruña",
-    "limpieza oficinas A Coruña",
-    "limpieza final de obra A Coruña",
-    "mantenimiento hogar A Coruña",
-    "manitas A Coruña",
-    "pintura domicilio A Coruña",
-    "cuidado niños a domicilio A Coruña",
-    "lavar planchar domicilio A Coruña",
-    "servicio cocina a domicilio A Coruña",
-    "empresa familiar limpieza Galicia",
-    "limpieza profesional A Coruña",
-    "limpieza Arteixo",
-    "limpieza Oleiros",
-    "limpieza Culleredo",
-    "limpieza Cambre",
-    "limpieza Sada",
-    "Enisa limpieza",
+    // Marca
+    "Enisa Limpieza", "Enisa servicios hogar", "enisalimpieza.es",
+    // Limpieza A Coruña
+    "limpieza A Coruña", "empresa limpieza A Coruña", "limpieza hogar A Coruña",
+    "servicio limpieza domicilio A Coruña", "limpieza profesional A Coruña",
+    "limpieza pisos A Coruña", "asistenta hogar A Coruña", "empleada hogar A Coruña",
+    // Servicios específicos
+    "limpieza oficinas A Coruña", "limpieza final de obra A Coruña",
+    "pintura pisos A Coruña", "pintura domicilio A Coruña", "pintura locales A Coruña",
+    "manitas A Coruña", "mantenimiento hogar A Coruña",
+    "cuidado niños a domicilio A Coruña", "cuidadora niños A Coruña",
+    "lavar planchar domicilio A Coruña", "lavandería domicilio A Coruña",
+    "servicio cocina a domicilio A Coruña", "cocinera domicilio A Coruña",
+    "limpieza apartamentos turísticos A Coruña", "limpieza comunidades vecinos A Coruña",
+    // Comarca
+    "limpieza Arteixo", "limpieza Oleiros", "limpieza Culleredo", "limpieza Cambre",
+    "limpieza Sada", "limpieza Betanzos", "limpieza Carballo", "limpieza Bergondo",
+    "empresa limpieza comarca A Coruña", "servicios hogar comarca A Coruña",
+    // Galicia
+    "empresa familiar limpieza Galicia", "limpeza A Coruña", "servizos fogar A Coruña",
   ],
   openGraph: {
     type: "website",
@@ -78,7 +80,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning className={`${syne.variable} ${dmSans.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }

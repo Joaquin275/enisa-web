@@ -2,22 +2,34 @@
 
 import { signIn } from "@/lib/auth";
 import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 
-export async function loginAction(formData: FormData) {
-  const email = formData.get("email") as string;
+export async function loginAction(
+  _prevState: { error: string } | null,
+  formData: FormData
+): Promise<{ error: string } | null> {
+  const email = (formData.get("email") as string)?.trim();
   const password = formData.get("password") as string;
+
+  if (!email || !password) {
+    return { error: "Introduce el email y la contraseña." };
+  }
 
   try {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: "/admin/dashboard",
+      redirect: false,
     });
   } catch (error) {
     if (error instanceof AuthError) {
       return { error: "Email o contraseña incorrectos." };
     }
-    // Si es un redirect de NextAuth, dejarlo pasar
-    throw error;
+    // Error inesperado
+    console.error("[LOGIN]", error);
+    return { error: "Error al iniciar sesión. Inténtalo de nuevo." };
   }
+
+  // Login correcto → redirigir
+  redirect("/admin/dashboard");
 }

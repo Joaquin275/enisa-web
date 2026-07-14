@@ -1,28 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { auth } from "@/lib/auth";
+import { NextResponse } from "next/server";
 
-export async function middleware(req: NextRequest) {
+export default auth((req) => {
   const { pathname } = req.nextUrl;
 
-  if (
-    (pathname.startsWith("/admin") && pathname !== "/admin/login") ||
-    pathname.startsWith("/api/admin")
-  ) {
-    const token = await getToken({
-      req,
-      secret: process.env.AUTH_SECRET ?? process.env.NEXTAUTH_SECRET,
-    });
+  const isProtected =
+    pathname.startsWith("/admin") && pathname !== "/admin/login";
 
-    if (!token) {
-      if (pathname.startsWith("/api/")) {
-        return NextResponse.json({ error: "No autorizado" }, { status: 401 });
-      }
-      return NextResponse.redirect(new URL("/admin/login", req.url));
+  if (isProtected && !req.auth) {
+    if (pathname.startsWith("/api/")) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
     }
+    const loginUrl = new URL("/admin/login", req.url);
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();
-}
+});
 
 export const config = {
   matcher: ["/admin/:path*", "/api/admin/:path*"],
